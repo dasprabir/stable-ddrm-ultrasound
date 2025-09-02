@@ -128,6 +128,18 @@ guided_diffusion/  # UNet & diffusion backbone
 main.py            # Main training/inference script
 My_Result.ipynb    # 📌 Main results notebook
 ```
+---
+
+## 📂 MATLAB Codes
+
+The repository also includes a [`Matlabfiles/`](./Matlabfiles) directory containing MATLAB implementations for:
+
+- Tikhonov/Wiener baseline deconvolution  
+- FFT/BCCB operators for ultrasound image formation  
+- Preprocessing scripts for RF → B-mode conversion  
+- Experimental scripts used during my internship report  
+
+These scripts complement the Python diffusion pipeline and can be used to reproduce classical baseline results.
 
 ---
 
