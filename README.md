@@ -104,17 +104,7 @@ python main.py --ni \
   --sigma_0 15
 ```
 
-### Example: DDRM reconstruction
 
-```bash
-python ddrm_old.py \
-  --degraded_mat input/Simu/1/ddrm_out/degraded_y0.mat \
-  --gt_mat       input/Simu/1/ddrm_out/ground_truth.mat \
-  --psf_path     exp/datasets/anes_data/simu/1/psf_GT_1.mat \
-  --model_path   exp/logs/imagenet/256x256_diffusion_unet.pt \
-  --image_size   256 \
-  --steps        50
-```
 
 ---
 
