@@ -18,7 +18,7 @@ Ultrasound B-mode images are degraded by convolution with the **point spread fun
 
 ```
 
-Y = H \* X + N
+Y = H  X + N
 
 ````
 
