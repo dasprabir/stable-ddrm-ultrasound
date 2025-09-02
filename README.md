@@ -1,5 +1,6 @@
 
-
+# Fourier-DDRM for Ultrasound Imaging
+*A physics-guided diffusion approach for ultrasound image deconvolution and super-resolution.*
 
 This repository contains the code and results of my Master’s Thesis Internship project:  
 **“Ultrasound Image Deconvolution via Block Circulant Spectral Decomposition in Diffusion Models”**  
@@ -11,7 +12,7 @@ The work proposes **Fourier-DDRM**, a variant of Denoising Diffusion Restoration
 
 ---
 
-## 📌 Motivation
+##  Motivation
 
 Ultrasound B-mode images are degraded by convolution with the **point spread function (PSF)** and corrupted by noise:
 
@@ -26,7 +27,7 @@ Classical Wiener/Tikhonov filters oversmooth fine structures. Deep learning meth
 
 ---
 
-## ✨ Contributions
+##  Contributions
 
 - **Fourier-DDRM**: replaces SVD by FFT-based BCCB projections (`H = F† Λh F`), reducing runtime and memory.  
 - **Physics-informed priors**: explicitly integrate ultrasound forward model into the diffusion sampling process.  
@@ -82,7 +83,7 @@ torchvision
 
 ---
 
-## 🚀 Usage
+## Usage
 
 ### Run the main results notebook
 
@@ -130,7 +131,7 @@ My_Result.ipynb    # 📌 Main results notebook
 
 ---
 
-## 🧪 Data
+##  Data
 
 * **Simulated phantoms** (scatterers convolved with anisotropic PSFs + noise)
 * **In vivo mouse kidney B-mode** acquisitions
@@ -139,7 +140,7 @@ My_Result.ipynb    # 📌 Main results notebook
 
 ---
 
-## 🔮 Future Work
+##  Future Work
 
 * **Speckle-aware fine-tuning** of diffusion priors to improve contrast ratio (CR).
 * **Domain adaptation** of noise model (RF vs B-mode, multiplicative vs additive).
@@ -147,7 +148,7 @@ My_Result.ipynb    # 📌 Main results notebook
 
 ---
 
-## 📝 Citation
+##  Citation
 
 If you use this work, please cite:
 
@@ -160,14 +161,11 @@ If you use this work, please cite:
 }
 ```
 
----
 
-## 🙏 Acknowledgements
+##  Acknowledgements
 
 * Supervisors: Dr. Duong-Hung Pham, Prof. Denis Kouamé, Dr. Julien Fade
 * MINDS team members Vassili & Arthur for technical discussions
 * IRIT & Centrale Méditerranée for providing resources
 
 
-
-```
