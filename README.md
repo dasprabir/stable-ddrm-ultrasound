@@ -133,14 +133,16 @@ My_Result.ipynb    # 📌 Main results notebook
 
 ## 📂 MATLAB Codes
 
-The repository also includes a [`Matlabfiles/`](./Matlabfiles) directory containing MATLAB implementations for:
+The repository includes a [`Matlabfiles/`](./Matlabfiles) directory with supporting MATLAB scripts:
 
-- Tikhonov/Wiener baseline deconvolution  
-- FFT/BCCB operators for ultrasound image formation  
-- Preprocessing scripts for RF → B-mode conversion  
-- Experimental scripts used during my internship report  
+- **ComputeMetrics_Visualization/**  
+  Scripts for computing PSNR, SSIM, Contrast Ratio (CR), Resolution Gain (RG) and visualizing RF → B-mode conversions.  
+  Key scripts: `computeMetrics.m`, `resolution_gain.m`, `ContrastRatio.m`, `rf2bmode.m`.
 
-These scripts complement the Python diffusion pipeline and can be used to reproduce classical baseline results.
+- **Psf_Estimation/**  
+  Scripts for ultrasound Point Spread Function (PSF) estimation and demos.  
+  Key scripts: `calling_psf.m`, `demo.m`, `psf_demo_new_data.m`.
+
 
 ---
 
