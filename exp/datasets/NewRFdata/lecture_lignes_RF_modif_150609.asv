@@ -1,0 +1,137 @@
+% fichier pour lire les lignes RF
+clear;
+
+
+% --------------------- %
+% paramètres de l'image %
+% --------------------- %
+% lieu de stockage et caractéristiques propres
+racineTot ='D:\Dossiers\Rech_Tours\Users\Denis\kmatlab\Trait_Images\lecture_RF\' %'F:\Marie_Euler\sauve savderm\';%D:\Users\Marie\sauve savderm\';
+nomIm = 'image070911_110735'; NbImages = 108; Long = 6.24; Larg = 16; % en mm
+% nomIm = 'image070911_121311'; NbImages = 290; Long = 6; Larg = 16; % en mm
+% nomIm = 'image071205_174857'; NbImages = 160; Long = 6.24; Larg = 16; % en mm
+% nomIm = 'image071205_182034'; NbImages = 300; Long = 6.24; Larg = 16; % en mm
+
+% affIm = 1 pour afficher l'image, 0 sinon
+affIm = 1; % 0; % 
+
+% modeB = 0 pour afficher seulement les lignesRF, 1 pour détecter l'enveloppe et réhausser l'image
+modeB = 0; % 1; % 
+
+% sauvRF = 1 pour sauvegarder l'image RF, 0 sinon
+sauvRF = 0; % 1; % 
+
+% sauv = 1 pour sauvegarder l'image, 0 sinon
+sauv = 0; % 1; % 
+
+% arretRF = 1 pour s'arreter après chaque image RF, 0 sinon
+arretRF = 1; % 0; % 
+
+% arret = 1 pour s'arreter après chaque image, 0 sinon
+arret = 0; % 1; % 
+
+
+% ------------------------------- %
+% lecture et affichage de l'image %
+% ------------------------------- %
+racineFich = [];
+for racineFich = 1:NbImages, % ATTENTION, si une seule image, racineFich doit valoir 000 !
+    if NbImages == 1,
+        racineFich = 0;
+    end
+    if racineFich < 10,
+        charRacFich = '00';
+    elseif racineFich < 100,
+        charRacFich = '0';
+    else
+        charRacFich = '';
+    end
+    adFich = [racineTot nomIm '\' nomIm '_' charRacFich num2str(racineFich) '.RFD'];
+    fid_fich = fopen(adFich,'r');
+    %IdFichier = char(fread(fid_fich, [1,6], 'uchar'));
+   % IdFichier = (fread(fid_fich, [1,6], 'uchar'));
+    CodeAcq = char(fread(fid_fich, [1,4], 'uchar'));
+    NoImage = fread(fid_fich, [1,1], 'uint16') + 1; % la première image a le n°1
+    NbLignes = fread(fid_fich, [1,1], 'uint16');
+    NbEch = fread(fid_fich, [1,1], 'uint16'); % échantillons dans UNE ligne
+    matImage = fread(fid_fich, [NbEch,NbLignes], 'int16');
+
+    % redressement
+    matImRed = abs(matImage);
+    
+    matImEnv = [];
+    matImEnvComp = [];
+    graphiq2 = figure;
+    for ligneRF = 1:NbLignes,
+        graphiq2 = plot(matImage(1:end,ligneRF));
+        title(['Image ' nomIm(6:11) ' ' nomIm(13:18) ' ' charRacFich num2str(racineFich) ', Ligne ' num2str(ligneRF)]);
+        xlabel('Echantillons');
+        ylabel('Amplitude');
+% % % % %         pause;
+% % % %         
+% % % %         figure
+% % % %         plot(matImRed(1:end,ligneRF));
+% % % % %         pause;
+% % % %     
+% % % %         % prise de l'enveloppe
+% % % %         matImEnv(:,ligneRF) = real(hilbert(matImRed(1:end,ligneRF)));
+% % % %         figure
+% % % %         plot(matImEnv(1:end,ligneRF));
+% % % % %         pause;
+% % % %         
+% % % %         % compression en dynamique en NdG
+% % % %         matImEnvComp = (1/4)*real((matImEnv.^(1/2)));
+% % % %     
+% % % %         figure, plot(matImEnvComp(1:end,ligneRF));
+% % % %         title(['Image ' nomIm(6:11) ' ' nomIm(13:18) ' ' charRacFich num2str(racineFich) ', Ligne ' num2str(ligneRF)]);
+% % % %         xlabel('Echantillons');
+% % % %         ylabel('Amplitude');
+        
+        % sauvegarde image RF
+        if sauvRF,
+            saveas(graphiq2,[racineTot nomIm '\' nomIm '_' charRacFich num2str(racineFich) '_Ligne_' num2str(ligneRF) '.fig']);
+        end
+        
+        % arret après chaque image RF
+        if arretRF,
+            pause;
+        end
+    end
+
+    if modeB,
+        % prise de l'enveloppe (et redressement)
+        for ligneRF = 1:NbLignes,
+            matImage(:,ligneRF) = abs(hilbert(matImage(1:end,ligneRF)));
+        end
+        
+        % compression en dynamique en NdG
+        matImage = (1/4)*real(matImage.^(1/2));
+    end
+    
+    if sauv || affIm
+        graphiq = []; % figure; % 
+        coef_Long = NbEch/Long;
+        coef_Larg = NbLignes/Larg;
+        graphiq = imagesc([0:1/coef_Larg:NbLignes/coef_Larg],[0:1/coef_Long:NbEch/coef_Long],matImage);
+        colormap('gray'); % reverse_gray'); % autumn'); % summer'); % jet'); % 
+        colorbar;
+        title(['Image ' nomIm(6:11) ' ' nomIm(13:18) ' ' charRacFich num2str(racineFich)]);
+        xlabel('Largeur de la zone explorée (en mm)');
+        ylabel('Profondeur de la zone explorée (en mm)');    
+    end
+    
+    % sauvegarde image
+    if sauv,
+        saveas(graphiq,[racineTot nomIm '\' nomIm '_' charRacFich num2str(racineFich) '.fig']);
+    end
+    
+    % arret après chaque image
+    if arret,
+        pause;
+    end
+    
+    fclose(fid_fich);
+    if NbImages == 1,
+        break;
+    end
+end
