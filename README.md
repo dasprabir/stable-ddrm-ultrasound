@@ -1,7 +1,5 @@
-Here’s the **complete README in Markdown**, updated to align with your internship report:
 
-```markdown
-# Fourier-DDRM for Ultrasound Imaging
+
 
 This repository contains the code and results of my Master’s Thesis Internship project:  
 **“Ultrasound Image Deconvolution via Block Circulant Spectral Decomposition in Diffusion Models”**  
