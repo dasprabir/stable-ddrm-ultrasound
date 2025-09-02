@@ -1,9 +1,9 @@
 
-# Fourier-DDRM for Ultrasound Imaging
-*A physics-guided diffusion approach for ultrasound image deconvolution and super-resolution.*
+**“Ultrasound Image Deconvolution via Block Circulant Spectral Decomposition in Diffusion Models”**
+*A physics-guided diffusion approach for ultrasound image deconvolution *
 
 This repository contains the code and results of my Master’s Thesis Internship project:  
-**“Ultrasound Image Deconvolution via Block Circulant Spectral Decomposition in Diffusion Models”**  
+  
 
 The work proposes **Fourier-DDRM**, a variant of Denoising Diffusion Restoration Models (DDRM) where the expensive SVD projection is replaced by a **Block-Circulant with Circulant Blocks (BCCB) / Fourier spectral decomposition**. This approach accelerates ultrasound image restoration while preserving physics consistency and improving reconstruction quality.
 
